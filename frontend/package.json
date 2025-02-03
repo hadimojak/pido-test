@@ -1,0 +1,20 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "frontend side pido test",
+  "keywords": [
+    "react",
+    "node",
+    "form"
+  ],
+  "license": "ISC",
+  "author": "hadi arbabi",
+  "type": "commonjs",
+  "main": "app.tsx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "react": "^19.0.0"
+  }
+}
