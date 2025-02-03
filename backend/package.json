@@ -1,0 +1,25 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "backend side of pido test",
+  "keywords": [
+    "node",
+    "express",
+    "mongo",
+    "redis",
+    "ts"
+  ],
+  "license": "ISC",
+  "author": "hadi arbabi",
+  "type": "commonjs",
+  "main": "server.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.6",
+    "redis": "^4.7.0"
+  }
+}
