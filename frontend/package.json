@@ -10,11 +10,16 @@
   "license": "ISC",
   "author": "hadi arbabi",
   "type": "commonjs",
-  "main": "app.tsx",
+  "main": "src/app.tsx",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "react": "^19.0.0"
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-scripts": "^5.0.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3"
   }
 }

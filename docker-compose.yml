@@ -1,33 +1,36 @@
 version: "3.8"
 
 services:
-  backend:
-    build: ./backend
-    ports:
-      - "4000:4000"
-    depends_on:
-      - mongo
-      - redis
-    environment:
-      - MONGO_URI=mongodb://mongo:27017/service_db
-      - REDIS_HOST=redis
-    networks:
-      - app_network
+  # backend:
+  #   build: ./backend
+  #   ports:
+  #     - "4000:4000"
+  #   depends_on:
+  #     - mongo
+  #     - redis
+  #   environment:
+  #     - MONGO_URI=mongodb://mongo:27017/service_db
+  #     - REDIS_HOST=redis
+  #   networks:
+  #     - app_network
 
-  frontend:
-    build: ./frontend
-    ports:
-      - "3000:3000"
-    depends_on:
-      - backend
-    networks:
-      - app_network
+  # frontend:
+  #   build: ./frontend
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - backend
+  #   networks:
+  #     - app_network
 
   mongo:
     image: mongo
     container_name: mongo_db
     ports:
       - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=user
+      - MONGO_INITDB_ROOT_PASSWORD=123456
     networks:
       - app_network
 
@@ -36,6 +39,8 @@ services:
     container_name: redis_cache
     ports:
       - "6379:6379"
+    environment:
+      - REDIS_PASSWORD=123456
     networks:
       - app_network
 
