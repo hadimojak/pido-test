@@ -8,3 +8,5 @@ const FormSchema = new mongoose.Schema({
 });
 
 export const FormModel = mongoose.model('Form', FormSchema);
+
+console.log(Object.keys(FormModel.schema.paths));

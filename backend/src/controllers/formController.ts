@@ -2,17 +2,27 @@ import { Request, Response, urlencoded } from "express";
 import { FormModel } from "../models/formModel";
 import { createClient } from "redis";
 
-const client = createClient();
-client.on("error", (err: Error) => console.log("redis error", err));
+const redisHost = process.env.REDIS_HOST as string;
+const redisPort = Number(process.env.REDIS_PORT);
+const redisPassword = process.env.REDIS_PASSWORD as string;
+
+const client = createClient({ socket: { host: redisHost, port: redisPort }, password: redisPassword });
+
+client
+  .connect()
+  .then(() => console.log("Redis connected successfully"))
+  .catch((err) => console.error("Redis connection error:", err));
 
 export const submitForm = async (req: Request, res: Response) => {
-  const formData = new FormModel(req.body);
-  console.log(formData);
+  console.log(req.body);
 
-  await formData.save();
+  // const formData = new FormModel(req.body);
+  // console.log(formData);
 
-  // client.setex(`form:${formData._id}`, 3600, JSON.stringify(formData));
-  res.json({ success: true, data: formData });
+  // await formData.save();
+
+  // client.setEx(`form:${formData._id}`, 3600, JSON.stringify(formData));
+  res.json({ success: true, data: "formData" });
 };
 
 export const fetchForm = async (req: Request, res: Response) => {
