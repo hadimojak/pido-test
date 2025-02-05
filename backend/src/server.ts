@@ -19,14 +19,19 @@ app.use(cors());
 
 app.use("/api", formRoutes);
 
-app.listen(PORT, HOSTNAME, async (err) => {
-  if (err) console.log(err);
-  await mongoose
-    .connect(MONGOURL)
-    .then(() => console.log("MongoDB connected successfully'"))
-    .catch((err) => console.log("MongoDB connection error:", err))
-    .finally(() => {
-      mongoose.connection.close();
-    });
-  console.log("backend run on port 4000");
+const dbConnection = async () => {
+  try {
+    await mongoose.connect(MONGOURL);
+    console.log("MongoDB connected successfully");
+  } catch (error) {
+    console.log("MongoDB connection error:", error);
+    process.exit(1);
+  }
+};
+
+dbConnection().then(() => {
+  app.listen(PORT, HOSTNAME, async (err) => {
+    if (err) console.log(err);
+    console.log("backend run on port 4000");
+  });
 });

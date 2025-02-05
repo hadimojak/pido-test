@@ -1,12 +1,27 @@
-import mongoose from 'mongoose';
+import mongoose, { Document, Schema } from "mongoose";
 
-const FormSchema = new mongoose.Schema({
-  total: Number,
-  dateTime: String,
-  code: Number,
-  image: String,
+export interface IForm extends Document {
+  _id: string; 
+  total: number;
+  dateTime: string;
+  code: number;
+  image: string;
+}
+
+const FormSchema = new Schema<IForm>({
+  _id: { type: String, required: true }, 
+  total: { type: Number, required: true },
+  dateTime: { type: String, required: true },
+  code: { type: Number, required: true },
+  image: { type: String, required: true },
 });
 
-export const FormModel = mongoose.model('Form', FormSchema);
+export interface IMongooseError extends Error {
+  name: string;
+  code?: number;
+  keyValue?: Record<string, any>;
+  errors?: Record<string, { message: string }>;
+}
 
-console.log(Object.keys(FormModel.schema.paths));
+export const FormModel = mongoose.model<IForm>("Form", FormSchema);
+
