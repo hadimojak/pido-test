@@ -10,7 +10,9 @@ const Form: React.FC<FormProps> = ({ setSubmittedData }) => {
   const [code, setCode] = useState("");
   const [image, setImage] = useState("");
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
     const dateTime = new Date().toISOString();
     const formData = { id, total, dateTime, code, image };
 
@@ -22,17 +24,28 @@ const Form: React.FC<FormProps> = ({ setSubmittedData }) => {
 
     const data = await response.json();
     setSubmittedData(data.data);
+    setId("");
+    setTotal("");
+    setCode("");
+    setImage("");
   };
 
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
       <h2>Submit Form</h2>
-      <input placeholder="_id" onChange={(e) => setId(e.target.value)} />
-      <input placeholder="Total" onChange={(e) => setTotal(e.target.value)} />
-      <input placeholder="Code" onChange={(e) => setCode(e.target.value)} />
-      <input placeholder="Image (base64)" onChange={(e) => setImage(e.target.value)} />
-      <button onClick={handleSubmit}>Submit</button>
-    </div>
+      <input placeholder="_id" value={id}
+        type="text"
+        onChange={(e) => setId(e.target.value)} />
+      <input placeholder="Total" value={total}
+        type='number'
+        onChange={(e) => setTotal(e.target.value)} />
+      <input placeholder="Code" value={code}
+        type="number"
+        onChange={(e) => setCode(e.target.value)} />
+      <input placeholder="Image (base64)" value={image}
+        onChange={(e) => setImage(e.target.value)} />
+      <button type="submit">Submit</button>
+    </form>
   );
 };
 

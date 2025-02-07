@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-import express from "express";
+import express, { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import cors from "cors";
@@ -18,6 +18,10 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use("/api", formRoutes);
+
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  res.status(500).json({ message: err.message });
+});
 
 const dbConnection = async () => {
   try {

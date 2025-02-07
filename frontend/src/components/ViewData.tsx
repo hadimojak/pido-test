@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
+// Define a type for the data we are expecting from the backend
 interface Data {
   total: number;
   dateTime: string;
@@ -8,7 +10,7 @@ interface Data {
 }
 
 interface ViewDataProps {
-  id: string; // Accept id as a prop to fetch the data
+  id: string;
 }
 
 const ViewData: React.FC<ViewDataProps> = ({ id }) => {
@@ -18,32 +20,40 @@ const ViewData: React.FC<ViewDataProps> = ({ id }) => {
 
   useEffect(() => {
     const fetchData = async () => {
+      
       setLoading(true);
       setError(null);
 
       try {
-        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/fetch/${id}`, {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        });
-        console.log({ response });
-
-        // setData(response);
+        const response = await axios.get<Data>(`${import.meta.env.VITE_BACKEND_URL}/fetch/${id}`);
+        setData(response.data);
       } catch (err) {
-        console.log(err);
+
+        setError('Error fetching data from the backend');
       } finally {
         setLoading(false);
       }
     };
-  });
+
+    fetchData();
+  }, [id]); // Fetch data when `id` changes
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
 
   return (
     <div>
-      {/* //   <h3>Submitted Data</h3>
-    //   <p>Total: {data.total}</p>
-    //   <p>DateTime: {data.dateTime}</p>
-    //   <p>Code: {data.code}</p>
-    //   <img src={data.image} alt="Submitted" style={{ width: "200px", height: "200px" }} /> */}
+      <h3>Submitted Data</h3>
+      {data ? (
+        <>
+          <p>Total: {data.total}</p>
+          <p>DateTime: {data.dateTime}</p>
+          <p>Code: {data.code}</p>
+          <img src={data.image} alt="Submitted" style={{ width: '200px', height: '200px' }} />
+        </>
+      ) : (
+        <p>No data found for this ID</p>
+      )}
     </div>
   );
 };

@@ -5,6 +5,8 @@ import "./App.css";
 
 function App() {
   const [submittedData, setSubmittedData] = useState<any>(null);
+  const [id, setId] = useState('');
+  const [inputValue, setInputValue] = useState('');
 
   return (
     <>
@@ -12,7 +14,11 @@ function App() {
       <div>
         <h1>Form Submission</h1>
         <Form setSubmittedData={setSubmittedData} />
-        {<ViewData data={submittedData} />}
+
+        <h1>view Data</h1>
+        <input type="text" placeholder="enter id" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
+        <button onClick={() => setId(inputValue)}>fetch Data</button>
+        <ViewData id={id} />
       </div>
     </>
   );
