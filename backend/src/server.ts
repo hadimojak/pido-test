@@ -8,8 +8,8 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import formRoutes from "./routes/formRoutes";
 
-const PORT: number = Number(process.env.PORT);
-const HOSTNAME: string = process.env.HOSTNAME as string;
+const PORT: number = Number(process.env.PORT) || 4000;
+const HOSTNAME: string = (process.env.HOSTNAME as string) || "127.0.0.1";
 
 const MONGOURL: string = process.env.MONGO_URI?.toString()!;
 

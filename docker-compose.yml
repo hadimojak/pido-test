@@ -1,26 +1,6 @@
+version: '3.8'
+
 services:
-  # backend:
-  #   build: ./backend
-  #   ports:
-  #     - "4000:4000"
-  #   depends_on:
-  #     - mongo
-  #     - redis
-  #   environment:
-  #     - MONGO_URI=mongodb://mongo:27017/service_db
-  #     - REDIS_HOST=redis
-  #   networks:
-  #     - app_network
-
-  # frontend:
-  #   build: ./frontend
-  #   ports:
-  #     - "3000:3000"
-  #   depends_on:
-  #     - backend
-  #   networks:
-  #     - app_network
-
   mongo:
     image: mongo
     container_name: mongodb
@@ -40,7 +20,7 @@ services:
     container_name: redis
     ports:
       - "6379:6379"
-    command: ["redis-server", "--requirepass", "123456"]
+    command: [ "redis-server", "--requirepass", "123456" ]
     environment:
       - REDIS_PASSWORD=123456
     restart: always

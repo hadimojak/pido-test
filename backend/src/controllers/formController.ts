@@ -3,9 +3,9 @@ import { FormModel, IMongooseError, IForm } from "../models/formModel";
 import { Total, TotalModel } from "../models/totalModel";
 import { createClient } from "redis";
 
-const redisHost = process.env.REDIS_HOST as string;
-const redisPort = Number(process.env.REDIS_PORT);
-const redisPassword = process.env.REDIS_PASSWORD as string;
+const redisHost = (process.env.REDIS_HOST as string) || "127.0.0.1";
+const redisPort = Number(process.env.REDIS_PORT) || 6379;
+const redisPassword = (process.env.REDIS_PASSWORD as string) || "123456";
 
 const client = createClient({
   socket: { host: redisHost, port: redisPort },
